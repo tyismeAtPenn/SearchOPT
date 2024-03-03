@@ -1,0 +1,12 @@
+*.class
+.vscode
+.DS_Store
+.project
+.classpath
+.settings
+.idea
+*.iml
+worker*
+23fa-CIS5550-SearchOPT.iml
+/out/
+Makefile

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>SearchOPT</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #FEF5EB;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+
+    .container {
+      flex: 1;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 50px;
+    }
+
+    form {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    input[type="text"] {
+      padding: 10px 25px;
+      font-size: 18px;
+      border-radius: 20px;
+      border: 2px solid #1707ff;
+      background-color: transparent;
+      color: #1707ff;
+      outline: none;
+      width: 400px;
+      max-width: 100%;
+    }
+
+    input[type="text"]:focus {
+      box-shadow: 0 0 5px rgba(7, 73, 255, 0.219);
+    }
+
+    button[type="submit"] {
+      padding: 10px 25px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.50);
+      border-radius: 10px;
+      border: 1px rgba(0, 134.94, 126.84, 0.38) solid;
+      transition-duration: 0.3s;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+      margin-left: 10px;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #3FA0C0;
+    }
+
+    .pagination-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .pagination {
+      display: flex;
+    }
+
+    #results {
+      margin-left: 30px;
+      margin-top: 40px;
+      padding: 20px;
+    }
+
+    #results ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #results li {
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+
+    #results a {
+      color: #1a0dab;
+      text-decoration: none;
+    }
+
+    #results a:hover {
+      text-decoration: underline;
+    }
+
+    /* loader */
+
+    .loader {
+      display: inline-block;
+      position: relative;
+      width: 80px;
+      height: 80px;
+      opacity: 0;
+
+    }
+
+
+    .loader.show {
+      opacity: 1;
+    }
+
+    .loader div {
+      display: inline-block;
+      position: absolute;
+      left: 8px;
+      width: 16px;
+      background: #f4f4f4;
+      animation: loader 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+    }
+
+    .loader div:nth-child(1) {
+      left: 8px;
+      animation-delay: -0.24s;
+    }
+
+    .loader div:nth-child(2) {
+      left: 32px;
+      animation-delay: -0.12s;
+    }
+
+    .loader div:nth-child(3) {
+      left: 56px;
+      animation-delay: 0;
+    }
+
+    @keyframes loader {
+      0% {
+        top: 8px;
+        height: 64px;
+      }
+
+      50%,
+      100% {
+        top: 24px;
+        height: 32px;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+  <div id="header">
+    <div
+      style="width: 100%; height: 100%; justify-content: center; align-items: center; display: inline-flex; margin-top: 80px">
+      <div style="width: 347px; height: 139px; position: relative">
+        <div
+          style="width: 20px; height: 19px; left: 0px; top: 63px; position: absolute; background: #3FA0C0; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 9999px">
+        </div>
+        <div
+          style="width: 20px; height: 19px; left: 60px; top: 0px; position: absolute; background: #3FA0C0; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 9999px">
+        </div>
+        <div
+          style="width: 20px; height: 19px; left: 60px; top: 120px; position: absolute; background: #3FA0C0; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 9999px">
+        </div>
+        <div
+          style="width: 20px; height: 19px; left: 20px; top: 82px; position: absolute; background: #3FA0C0; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 9999px">
+        </div>
+        <div
+          style="width: 20px; height: 19px; left: 40px; top: 101px; position: absolute; background: #3FA0C0; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 9999px">
+        </div>
+        <div
+          style="width: 20px; height: 19px; left: 40px; top: 19px; position: absolute; background: #3FA0C0; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 9999px">
+        </div>
+        <div
+          style="width: 20px; height: 19px; left: 20px; top: 38px; position: absolute; background: #3FA0C0; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 9999px">
+        </div>
+        <div
+          style="left: 80px; top: 42px; position: absolute; color: #3FA0C0; font-size: 50px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+          SearchOPT</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="search-container">
+    <form onsubmit="return search(this)">
+      <input type="text" id="input" name="q" placeholder="Searching..." required>
+      <button type="submit">Search</button>
+    </form>
+    <div id="results"></div>
+
+    <div class="loader">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <script src="Search.js"></script>
+</body>
+
+</html>
